@@ -1,0 +1,2298 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薪酬异常预警与预测报告 - 2026年06月</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #f0f2f5;
+            padding: 30px;
+            color: #1a1a2e;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px 35px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #0078D4;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        .header .sub {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        /* KPI 卡片 */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+        .kpi-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 18px 20px;
+            border-left: 4px solid #0078D4;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .kpi-card .label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .kpi-card .value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin: 6px 0 2px;
+        }
+        .kpi-card .delta {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .delta.up { color: #d32f2f; }
+        .delta.down { color: #2e7d32; }
+
+        /* 图表区域 */
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .chart-box {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 10px 5px 5px 5px;
+        }
+        .chart-box .chart-title {
+            font-size: 15px;
+            font-weight: 600;
+            padding-left: 10px;
+            color: #1a1a2e;
+        }
+
+        /* 表格区域 */
+        .table-section {
+            margin-top: 10px;
+        }
+        .table-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        table th {
+            background: #f1f5f9;
+            color: #1e293b;
+            font-weight: 600;
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        table tr:hover {
+            background: #f8fafc;
+        }
+
+        .two-tables {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        @media print {
+            body { background: white; padding: 10px; }
+            .container { box-shadow: none; padding: 15px; }
+            .kpi-card { background: #f8fafc; }
+            .chart-box { border: 1px solid #ddd; break-inside: avoid; }
+            .header { border-bottom-color: #0078D4; }
+        }
+        @media (max-width: 768px) {
+            .kpi-grid { grid-template-columns: 1fr 1fr; }
+            .chart-row { grid-template-columns: 1fr; }
+            .two-tables { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- 头部 -->
+        <div class="header">
+            <div>
+                <h1>📊 薪酬异常预警与预测报告</h1>
+                <span class="sub">报告月份：2026年06月</span>
+            </div>
+            <div style="text-align:right; font-size:13px; color:#6b7280;">
+                生成时间：2026-07-22 17:06
+            </div>
+        </div>
+
+        <!-- KPI 卡片 -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="label">💰 总薪酬成本</div>
+                <div class="value">19,022,027</div>
+                <div class="delta down">
+                    环比 -4.1% (-816,482)
+                </div>
+            </div>
+            <div class="kpi-card" style="border-left-color:#00A3A6;">
+                <div class="label">📈 同比变动</div>
+                <div class="value">-4.7%</div>
+                <div class="delta down">
+                    -938,897 元
+                </div>
+            </div>
+            <div class="kpi-card" style="border-left-color:#F2C94C;">
+                <div class="label">🧑‍💻 人均薪酬</div>
+                <div class="value">8,973</div>
+                <div style="font-size:13px; color:#6b7280;">在职 2120 人</div>
+            </div>
+            <div class="kpi-card" style="border-left-color:#9B51E0;">
+                <div class="label">📅 下月预测</div>
+                <div class="value">18,668,257</div>
+                <div style="font-size:13px; color:#6b7280;">2026年07月（趋势外推）</div>
+            </div>
+        </div>
+
+        <!-- 图表行 -->
+        <div class="chart-row">
+            <div class="chart-box">
+                <div class="chart-title">📊 各部门同比环比变动</div>
+                <div style="height:400px; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.7.0.min.js" integrity="sha256-jvTGqxNp8AGWEcvNLVuKr+8j5dGe9Yw51LQkmDH+IYA=" crossorigin="anonymous"></script>                <div id="b3f37389-affd-4c76-96a6-ede9339f83f0" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("b3f37389-affd-4c76-96a6-ede9339f83f0")) {                    Plotly.newPlot(                        "b3f37389-affd-4c76-96a6-ede9339f83f0",                        [{"marker":{"color":"#2B6CB0"},"name":"\u73af\u6bd4%","orientation":"h","text":["-7.8%","-4.2%","-2.9%"],"textposition":"outside","x":{"dtype":"f8","bdata":"LvxQ84o2H8AGzvmZ1KUQwBaEtTelXwfA"},"y":["\u996e\u6599\u4e1a\u52a1\u677f\u5757","\u4e2d\u540e\u53f0\u4e1a\u52a1\u677f\u5757","\u7ec8\u7aef\u4e1a\u52a1\u677f\u5757"],"type":"bar"},{"marker":{"color":"#00A3A6"},"name":"\u540c\u6bd4%","orientation":"h","text":["-27.9%","-4.5%","-1.8%"],"textposition":"outside","x":{"dtype":"f8","bdata":"m4udjhfqO8ABXgjU6yESwIkqPgSyZfy\u002f"},"y":["\u996e\u6599\u4e1a\u52a1\u677f\u5757","\u4e2d\u540e\u53f0\u4e1a\u52a1\u677f\u5757","\u7ec8\u7aef\u4e1a\u52a1\u677f\u5757"],"type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"font":{"size":12},"title":{"text":"\u5404\u90e8\u95e8\u85aa\u916c\u540c\u6bd4\u002f\u73af\u6bd4\u53d8\u52a8\u7387"},"barmode":"group","height":400,"xaxis":{"title":{"text":"\u53d8\u52a8\u7387 (%)"}},"yaxis":{"title":{"text":""}},"shapes":[{"line":{"color":"gray","dash":"dash","width":1},"type":"line","x0":0,"x1":0,"xref":"x","y0":0,"y1":1,"yref":"y domain"}]},                        {"responsive": true}                    )                };            </script>        </div>
+            </div>
+            <div class="chart-box">
+                <div class="chart-title">📈 总成本趋势与下月预测</div>
+                <div style="height:400px; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.7.0.min.js" integrity="sha256-jvTGqxNp8AGWEcvNLVuKr+8j5dGe9Yw51LQkmDH+IYA=" crossorigin="anonymous"></script>                <div id="b801d2ea-b346-4392-90d9-866b83d0ba48" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("b801d2ea-b346-4392-90d9-866b83d0ba48")) {                    Plotly.newPlot(                        "b801d2ea-b346-4392-90d9-866b83d0ba48",                        [{"line":{"color":"#0078D4","width":3},"marker":{"size":8},"mode":"lines+markers","name":"\u5386\u53f2\u5b9e\u9645","x":["2025-06","2026-05","2026-06"],"y":{"dtype":"f8","bdata":"4XoUykUJc0EUrkfZYutyQT0K17cMJHJB"},"type":"scatter"},{"line":{"color":"orange","dash":"dash","width":3},"marker":{"color":"red","size":8},"mode":"lines+markers","name":"\u9884\u6d4b\u8d8b\u52bf","x":["2026-06","2026\u5e7407\u6708"],"y":[19022027.49,18668256.75999999],"type":"scatter"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"annotations":[{"arrowhead":2,"font":{"color":"red","size":12},"showarrow":true,"text":"\u9884\u6d4b\u003cbr\u003e18,668,257","x":"2026\u5e7407\u6708","y":18668256.75999999}],"font":{"size":12},"title":{"text":"\u603b\u6210\u672c\u6708\u5ea6\u8d8b\u52bf\u4e0e\u4e0b\u6708\u9884\u6d4b"},"height":400,"xaxis":{"title":{"text":"\u6708\u4efd"}},"yaxis":{"title":{"text":"\u603b\u6210\u672c (\u5143)"}}},                        {"responsive": true}                    )                };            </script>        </div>
+            </div>
+        </div>
+
+        <!-- 表格区域 -->
+        <div class="two-tables">
+            <div class="table-section">
+                <h3>⚠️ 异常员工清单（变动 > ±20%）</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>部门</th>
+                                <th>变动率</th>
+                                <th>变动额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>郝春颖</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+121906.5%</td>
+            <td style="color: #d32f2f;">+14,629</td>
+        </tr>
+        
+        <tr>
+            <td>王兴旺</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+37765.7%</td>
+            <td style="color: #d32f2f;">+7,553</td>
+        </tr>
+        
+        <tr>
+            <td>裴和欢</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+1520.0%</td>
+            <td style="color: #d32f2f;">+16,282</td>
+        </tr>
+        
+        <tr>
+            <td>张仕伟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+372.6%</td>
+            <td style="color: #d32f2f;">+7,429</td>
+        </tr>
+        
+        <tr>
+            <td>张志煜</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+364.7%</td>
+            <td style="color: #d32f2f;">+5,189</td>
+        </tr>
+        
+        <tr>
+            <td>武树鹏</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+349.1%</td>
+            <td style="color: #d32f2f;">+5,240</td>
+        </tr>
+        
+        <tr>
+            <td>杨亚西</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+331.7%</td>
+            <td style="color: #d32f2f;">+5,116</td>
+        </tr>
+        
+        <tr>
+            <td>郑子尚</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+328.7%</td>
+            <td style="color: #d32f2f;">+4,443</td>
+        </tr>
+        
+        <tr>
+            <td>高俊杰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+328.1%</td>
+            <td style="color: #d32f2f;">+1,140</td>
+        </tr>
+        
+        <tr>
+            <td>李东阳</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+311.7%</td>
+            <td style="color: #d32f2f;">+1,089</td>
+        </tr>
+        
+        <tr>
+            <td>阮朝阳</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+299.7%</td>
+            <td style="color: #d32f2f;">+3,677</td>
+        </tr>
+        
+        <tr>
+            <td>郭鹏飞</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+298.4%</td>
+            <td style="color: #d32f2f;">+4,549</td>
+        </tr>
+        
+        <tr>
+            <td>栾承恩</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+297.8%</td>
+            <td style="color: #d32f2f;">+1,041</td>
+        </tr>
+        
+        <tr>
+            <td>李豪杰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+292.3%</td>
+            <td style="color: #d32f2f;">+4,302</td>
+        </tr>
+        
+        <tr>
+            <td>徐子强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+283.1%</td>
+            <td style="color: #d32f2f;">+989</td>
+        </tr>
+        
+        <tr>
+            <td>陈振涛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+266.0%</td>
+            <td style="color: #d32f2f;">+929</td>
+        </tr>
+        
+        <tr>
+            <td>付永艳</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+253.7%</td>
+            <td style="color: #d32f2f;">+886</td>
+        </tr>
+        
+        <tr>
+            <td>陈鑫荣</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+250.6%</td>
+            <td style="color: #d32f2f;">+876</td>
+        </tr>
+        
+        <tr>
+            <td>唐烨</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+247.7%</td>
+            <td style="color: #d32f2f;">+3,720</td>
+        </tr>
+        
+        <tr>
+            <td>程威</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+245.8%</td>
+            <td style="color: #d32f2f;">+4,006</td>
+        </tr>
+        
+        <tr>
+            <td>刘洪瑞</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+235.3%</td>
+            <td style="color: #d32f2f;">+1,029</td>
+        </tr>
+        
+        <tr>
+            <td>詹思鲁</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+233.2%</td>
+            <td style="color: #d32f2f;">+3,446</td>
+        </tr>
+        
+        <tr>
+            <td>吕治睿</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+224.0%</td>
+            <td style="color: #d32f2f;">+783</td>
+        </tr>
+        
+        <tr>
+            <td>袁顺好</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+220.4%</td>
+            <td style="color: #d32f2f;">+5,453</td>
+        </tr>
+        
+        <tr>
+            <td>张哲</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+181.5%</td>
+            <td style="color: #d32f2f;">+793</td>
+        </tr>
+        
+        <tr>
+            <td>马倍倍</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+180.6%</td>
+            <td style="color: #d32f2f;">+2,151</td>
+        </tr>
+        
+        <tr>
+            <td>晏炜</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+179.2%</td>
+            <td style="color: #d32f2f;">+2,679</td>
+        </tr>
+        
+        <tr>
+            <td>郑鑫宇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+176.1%</td>
+            <td style="color: #d32f2f;">+3,325</td>
+        </tr>
+        
+        <tr>
+            <td>张梦寒</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+168.9%</td>
+            <td style="color: #d32f2f;">+811</td>
+        </tr>
+        
+        <tr>
+            <td>黄海</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+168.7%</td>
+            <td style="color: #d32f2f;">+3,557</td>
+        </tr>
+        
+        <tr>
+            <td>张武</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+167.3%</td>
+            <td style="color: #d32f2f;">+5,407</td>
+        </tr>
+        
+        <tr>
+            <td>夏昕</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+165.2%</td>
+            <td style="color: #d32f2f;">+2,301</td>
+        </tr>
+        
+        <tr>
+            <td>王子硕</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+161.4%</td>
+            <td style="color: #d32f2f;">+3,231</td>
+        </tr>
+        
+        <tr>
+            <td>徐晓东</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+158.7%</td>
+            <td style="color: #d32f2f;">+762</td>
+        </tr>
+        
+        <tr>
+            <td>张磊</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+158.3%</td>
+            <td style="color: #d32f2f;">+5,368</td>
+        </tr>
+        
+        <tr>
+            <td>杨志</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+157.3%</td>
+            <td style="color: #d32f2f;">+5,300</td>
+        </tr>
+        
+        <tr>
+            <td>赵鑫</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+152.9%</td>
+            <td style="color: #d32f2f;">+5,091</td>
+        </tr>
+        
+        <tr>
+            <td>周康</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+136.7%</td>
+            <td style="color: #d32f2f;">+3,637</td>
+        </tr>
+        
+        <tr>
+            <td>彭军军</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+125.2%</td>
+            <td style="color: #d32f2f;">+4,261</td>
+        </tr>
+        
+        <tr>
+            <td>黄丹红</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+114.3%</td>
+            <td style="color: #d32f2f;">+3,455</td>
+        </tr>
+        
+        <tr>
+            <td>熊鑫</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+111.0%</td>
+            <td style="color: #d32f2f;">+2,987</td>
+        </tr>
+        
+        <tr>
+            <td>罗颜新</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+99.2%</td>
+            <td style="color: #d32f2f;">+1,522</td>
+        </tr>
+        
+        <tr>
+            <td>江昊天</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+94.1%</td>
+            <td style="color: #d32f2f;">+2,369</td>
+        </tr>
+        
+        <tr>
+            <td>马建凯</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+91.7%</td>
+            <td style="color: #d32f2f;">+8,595</td>
+        </tr>
+        
+        <tr>
+            <td>王文杰</td>
+            <td>终端业务板块</td>
+            <td style="color: #d32f2f;">+89.0%</td>
+            <td style="color: #d32f2f;">+26,700</td>
+        </tr>
+        
+        <tr>
+            <td>豆舒畅</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+85.2%</td>
+            <td style="color: #d32f2f;">+3,575</td>
+        </tr>
+        
+        <tr>
+            <td>王朋朋</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+77.1%</td>
+            <td style="color: #d32f2f;">+2,485</td>
+        </tr>
+        
+        <tr>
+            <td>李杰林</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+76.5%</td>
+            <td style="color: #d32f2f;">+3,581</td>
+        </tr>
+        
+        <tr>
+            <td>沃超</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+75.4%</td>
+            <td style="color: #d32f2f;">+3,791</td>
+        </tr>
+        
+        <tr>
+            <td>张龙</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+74.1%</td>
+            <td style="color: #d32f2f;">+3,510</td>
+        </tr>
+        
+        <tr>
+            <td>王晶</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+71.9%</td>
+            <td style="color: #d32f2f;">+1,638</td>
+        </tr>
+        
+        <tr>
+            <td>周画</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+66.6%</td>
+            <td style="color: #d32f2f;">+1,134</td>
+        </tr>
+        
+        <tr>
+            <td>赵雪</td>
+            <td>终端业务板块</td>
+            <td style="color: #d32f2f;">+64.6%</td>
+            <td style="color: #d32f2f;">+7,062</td>
+        </tr>
+        
+        <tr>
+            <td>杨猛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+60.7%</td>
+            <td style="color: #d32f2f;">+1,282</td>
+        </tr>
+        
+        <tr>
+            <td>袁梓淳</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+59.7%</td>
+            <td style="color: #d32f2f;">+2,600</td>
+        </tr>
+        
+        <tr>
+            <td>李碧通</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+59.1%</td>
+            <td style="color: #d32f2f;">+3,250</td>
+        </tr>
+        
+        <tr>
+            <td>李典</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+59.0%</td>
+            <td style="color: #d32f2f;">+3,022</td>
+        </tr>
+        
+        <tr>
+            <td>刘宇昂</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+57.7%</td>
+            <td style="color: #d32f2f;">+2,141</td>
+        </tr>
+        
+        <tr>
+            <td>周涛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+54.0%</td>
+            <td style="color: #d32f2f;">+1,915</td>
+        </tr>
+        
+        <tr>
+            <td>刘怡彤</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+53.2%</td>
+            <td style="color: #d32f2f;">+2,661</td>
+        </tr>
+        
+        <tr>
+            <td>李安琪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+52.7%</td>
+            <td style="color: #d32f2f;">+2,458</td>
+        </tr>
+        
+        <tr>
+            <td>侯琛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+51.7%</td>
+            <td style="color: #d32f2f;">+1,434</td>
+        </tr>
+        
+        <tr>
+            <td>胡志祥</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+49.7%</td>
+            <td style="color: #d32f2f;">+2,370</td>
+        </tr>
+        
+        <tr>
+            <td>张宇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+49.2%</td>
+            <td style="color: #d32f2f;">+2,064</td>
+        </tr>
+        
+        <tr>
+            <td>任嘉琪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+46.1%</td>
+            <td style="color: #d32f2f;">+1,623</td>
+        </tr>
+        
+        <tr>
+            <td>张曾光</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+43.0%</td>
+            <td style="color: #d32f2f;">+3,329</td>
+        </tr>
+        
+        <tr>
+            <td>姜雪</td>
+            <td>终端业务板块</td>
+            <td style="color: #d32f2f;">+42.3%</td>
+            <td style="color: #d32f2f;">+1,265</td>
+        </tr>
+        
+        <tr>
+            <td>郑伟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+40.5%</td>
+            <td style="color: #d32f2f;">+1,695</td>
+        </tr>
+        
+        <tr>
+            <td>何敏仪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+38.0%</td>
+            <td style="color: #d32f2f;">+3,265</td>
+        </tr>
+        
+        <tr>
+            <td>孙维</td>
+            <td>终端业务板块</td>
+            <td style="color: #d32f2f;">+37.0%</td>
+            <td style="color: #d32f2f;">+1,150</td>
+        </tr>
+        
+        <tr>
+            <td>谢昭华</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+35.6%</td>
+            <td style="color: #d32f2f;">+1,167</td>
+        </tr>
+        
+        <tr>
+            <td>钟金明</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+34.2%</td>
+            <td style="color: #d32f2f;">+4,735</td>
+        </tr>
+        
+        <tr>
+            <td>蒋付涛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+34.0%</td>
+            <td style="color: #d32f2f;">+2,849</td>
+        </tr>
+        
+        <tr>
+            <td>肖枝朋</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+33.7%</td>
+            <td style="color: #d32f2f;">+1,836</td>
+        </tr>
+        
+        <tr>
+            <td>罗正海</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+33.4%</td>
+            <td style="color: #d32f2f;">+3,607</td>
+        </tr>
+        
+        <tr>
+            <td>陈星权</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+33.0%</td>
+            <td style="color: #d32f2f;">+2,534</td>
+        </tr>
+        
+        <tr>
+            <td>范本磊</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+30.7%</td>
+            <td style="color: #d32f2f;">+1,880</td>
+        </tr>
+        
+        <tr>
+            <td>杨苏南</td>
+            <td>终端业务板块</td>
+            <td style="color: #d32f2f;">+30.6%</td>
+            <td style="color: #d32f2f;">+1,207</td>
+        </tr>
+        
+        <tr>
+            <td>温国强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+30.6%</td>
+            <td style="color: #d32f2f;">+2,353</td>
+        </tr>
+        
+        <tr>
+            <td>夏亮</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+29.6%</td>
+            <td style="color: #d32f2f;">+2,126</td>
+        </tr>
+        
+        <tr>
+            <td>胡云馨</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+29.0%</td>
+            <td style="color: #d32f2f;">+1,078</td>
+        </tr>
+        
+        <tr>
+            <td>房秋霞</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+28.7%</td>
+            <td style="color: #d32f2f;">+1,459</td>
+        </tr>
+        
+        <tr>
+            <td>叶奇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+28.5%</td>
+            <td style="color: #d32f2f;">+1,690</td>
+        </tr>
+        
+        <tr>
+            <td>谢斌</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+28.1%</td>
+            <td style="color: #d32f2f;">+2,051</td>
+        </tr>
+        
+        <tr>
+            <td>谢雨文</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+28.1%</td>
+            <td style="color: #d32f2f;">+753</td>
+        </tr>
+        
+        <tr>
+            <td>凌钰明</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+28.0%</td>
+            <td style="color: #d32f2f;">+1,581</td>
+        </tr>
+        
+        <tr>
+            <td>宋毅鹏</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+26.8%</td>
+            <td style="color: #d32f2f;">+1,848</td>
+        </tr>
+        
+        <tr>
+            <td>边丽妍</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+26.5%</td>
+            <td style="color: #d32f2f;">+1,430</td>
+        </tr>
+        
+        <tr>
+            <td>洪星</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+26.0%</td>
+            <td style="color: #d32f2f;">+1,069</td>
+        </tr>
+        
+        <tr>
+            <td>张雅琦</td>
+            <td>终端业务板块</td>
+            <td style="color: #d32f2f;">+25.8%</td>
+            <td style="color: #d32f2f;">+920</td>
+        </tr>
+        
+        <tr>
+            <td>王文</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+25.5%</td>
+            <td style="color: #d32f2f;">+1,969</td>
+        </tr>
+        
+        <tr>
+            <td>杨陆一</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+25.2%</td>
+            <td style="color: #d32f2f;">+965</td>
+        </tr>
+        
+        <tr>
+            <td>陈叙威</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+24.9%</td>
+            <td style="color: #d32f2f;">+734</td>
+        </tr>
+        
+        <tr>
+            <td>刘烁</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+24.5%</td>
+            <td style="color: #d32f2f;">+1,990</td>
+        </tr>
+        
+        <tr>
+            <td>张瓒</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+24.2%</td>
+            <td style="color: #d32f2f;">+1,234</td>
+        </tr>
+        
+        <tr>
+            <td>夏治桹</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+23.6%</td>
+            <td style="color: #d32f2f;">+1,585</td>
+        </tr>
+        
+        <tr>
+            <td>游宇涵</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+23.5%</td>
+            <td style="color: #d32f2f;">+1,052</td>
+        </tr>
+        
+        <tr>
+            <td>尚峻杰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+23.3%</td>
+            <td style="color: #d32f2f;">+1,187</td>
+        </tr>
+        
+        <tr>
+            <td>朱方方</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+22.6%</td>
+            <td style="color: #d32f2f;">+1,219</td>
+        </tr>
+        
+        <tr>
+            <td>李宇航</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+22.0%</td>
+            <td style="color: #d32f2f;">+1,615</td>
+        </tr>
+        
+        <tr>
+            <td>张世铉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+21.7%</td>
+            <td style="color: #d32f2f;">+1,761</td>
+        </tr>
+        
+        <tr>
+            <td>张瑾</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+21.6%</td>
+            <td style="color: #d32f2f;">+1,321</td>
+        </tr>
+        
+        <tr>
+            <td>罗国有</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+21.2%</td>
+            <td style="color: #d32f2f;">+1,239</td>
+        </tr>
+        
+        <tr>
+            <td>张泰然</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+21.2%</td>
+            <td style="color: #d32f2f;">+1,154</td>
+        </tr>
+        
+        <tr>
+            <td>严天伟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+21.0%</td>
+            <td style="color: #d32f2f;">+2,432</td>
+        </tr>
+        
+        <tr>
+            <td>王颂尧</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+21.0%</td>
+            <td style="color: #d32f2f;">+712</td>
+        </tr>
+        
+        <tr>
+            <td>余凡</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+20.9%</td>
+            <td style="color: #d32f2f;">+1,488</td>
+        </tr>
+        
+        <tr>
+            <td>黄达聪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+20.8%</td>
+            <td style="color: #d32f2f;">+1,629</td>
+        </tr>
+        
+        <tr>
+            <td>王佳乐</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+20.8%</td>
+            <td style="color: #d32f2f;">+2,037</td>
+        </tr>
+        
+        <tr>
+            <td>邹振涛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+20.7%</td>
+            <td style="color: #d32f2f;">+1,527</td>
+        </tr>
+        
+        <tr>
+            <td>张孟嘉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+20.7%</td>
+            <td style="color: #d32f2f;">+1,352</td>
+        </tr>
+        
+        <tr>
+            <td>聂超</td>
+            <td>终端业务板块</td>
+            <td style="color: #d32f2f;">+20.5%</td>
+            <td style="color: #d32f2f;">+1,024</td>
+        </tr>
+        
+        <tr>
+            <td>蒋现辉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+20.4%</td>
+            <td style="color: #d32f2f;">+1,379</td>
+        </tr>
+        
+        <tr>
+            <td>申雷雷</td>
+            <td>中后台业务板块</td>
+            <td style="color: #d32f2f;">+20.3%</td>
+            <td style="color: #d32f2f;">+1,522</td>
+        </tr>
+        
+        <tr>
+            <td>吴邦逸</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.0%</td>
+            <td style="color: #2e7d32;">-1,450</td>
+        </tr>
+        
+        <tr>
+            <td>尹刚</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.1%</td>
+            <td style="color: #2e7d32;">-1,478</td>
+        </tr>
+        
+        <tr>
+            <td>张洪国</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.1%</td>
+            <td style="color: #2e7d32;">-1,575</td>
+        </tr>
+        
+        <tr>
+            <td>李文</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.2%</td>
+            <td style="color: #2e7d32;">-1,261</td>
+        </tr>
+        
+        <tr>
+            <td>郝帅</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.3%</td>
+            <td style="color: #2e7d32;">-1,931</td>
+        </tr>
+        
+        <tr>
+            <td>周铁</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.5%</td>
+            <td style="color: #2e7d32;">-2,020</td>
+        </tr>
+        
+        <tr>
+            <td>陈海</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.6%</td>
+            <td style="color: #2e7d32;">-1,604</td>
+        </tr>
+        
+        <tr>
+            <td>张越胜</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.8%</td>
+            <td style="color: #2e7d32;">-1,406</td>
+        </tr>
+        
+        <tr>
+            <td>黄新园</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.8%</td>
+            <td style="color: #2e7d32;">-975</td>
+        </tr>
+        
+        <tr>
+            <td>杜正鑫</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.8%</td>
+            <td style="color: #2e7d32;">-1,861</td>
+        </tr>
+        
+        <tr>
+            <td>吴志超</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.8%</td>
+            <td style="color: #2e7d32;">-1,547</td>
+        </tr>
+        
+        <tr>
+            <td>郭攀</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.9%</td>
+            <td style="color: #2e7d32;">-1,870</td>
+        </tr>
+        
+        <tr>
+            <td>李明月</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-20.9%</td>
+            <td style="color: #2e7d32;">-1,936</td>
+        </tr>
+        
+        <tr>
+            <td>唐浩岚</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.0%</td>
+            <td style="color: #2e7d32;">-2,264</td>
+        </tr>
+        
+        <tr>
+            <td>钱少林</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.0%</td>
+            <td style="color: #2e7d32;">-1,743</td>
+        </tr>
+        
+        <tr>
+            <td>王阳阳</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.3%</td>
+            <td style="color: #2e7d32;">-1,783</td>
+        </tr>
+        
+        <tr>
+            <td>薛祖伟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.3%</td>
+            <td style="color: #2e7d32;">-1,578</td>
+        </tr>
+        
+        <tr>
+            <td>张玉林</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.4%</td>
+            <td style="color: #2e7d32;">-2,427</td>
+        </tr>
+        
+        <tr>
+            <td>张强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.5%</td>
+            <td style="color: #2e7d32;">-815</td>
+        </tr>
+        
+        <tr>
+            <td>周小妹</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-21.6%</td>
+            <td style="color: #2e7d32;">-3,492</td>
+        </tr>
+        
+        <tr>
+            <td>廖建华</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.7%</td>
+            <td style="color: #2e7d32;">-1,704</td>
+        </tr>
+        
+        <tr>
+            <td>袁心</td>
+            <td>饮料业务板块</td>
+            <td style="color: #2e7d32;">-21.8%</td>
+            <td style="color: #2e7d32;">-1,779</td>
+        </tr>
+        
+        <tr>
+            <td>吴志波</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.8%</td>
+            <td style="color: #2e7d32;">-2,036</td>
+        </tr>
+        
+        <tr>
+            <td>王超凡</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.8%</td>
+            <td style="color: #2e7d32;">-1,879</td>
+        </tr>
+        
+        <tr>
+            <td>占小赵</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.9%</td>
+            <td style="color: #2e7d32;">-1,882</td>
+        </tr>
+        
+        <tr>
+            <td>朱超</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.9%</td>
+            <td style="color: #2e7d32;">-1,878</td>
+        </tr>
+        
+        <tr>
+            <td>张志勇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-21.9%</td>
+            <td style="color: #2e7d32;">-1,682</td>
+        </tr>
+        
+        <tr>
+            <td>张正涛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.1%</td>
+            <td style="color: #2e7d32;">-2,144</td>
+        </tr>
+        
+        <tr>
+            <td>张春苗</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.1%</td>
+            <td style="color: #2e7d32;">-2,082</td>
+        </tr>
+        
+        <tr>
+            <td>冯敬威</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.5%</td>
+            <td style="color: #2e7d32;">-1,850</td>
+        </tr>
+        
+        <tr>
+            <td>张奇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.6%</td>
+            <td style="color: #2e7d32;">-1,893</td>
+        </tr>
+        
+        <tr>
+            <td>揭汉琴</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.6%</td>
+            <td style="color: #2e7d32;">-2,135</td>
+        </tr>
+        
+        <tr>
+            <td>谢山山</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.8%</td>
+            <td style="color: #2e7d32;">-2,660</td>
+        </tr>
+        
+        <tr>
+            <td>黄卫</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.9%</td>
+            <td style="color: #2e7d32;">-2,152</td>
+        </tr>
+        
+        <tr>
+            <td>王欢乐</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.9%</td>
+            <td style="color: #2e7d32;">-1,880</td>
+        </tr>
+        
+        <tr>
+            <td>李仓</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-22.9%</td>
+            <td style="color: #2e7d32;">-1,995</td>
+        </tr>
+        
+        <tr>
+            <td>史恩豪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-23.2%</td>
+            <td style="color: #2e7d32;">-2,780</td>
+        </tr>
+        
+        <tr>
+            <td>郭银银</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-23.2%</td>
+            <td style="color: #2e7d32;">-3,220</td>
+        </tr>
+        
+        <tr>
+            <td>蔡杰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-23.3%</td>
+            <td style="color: #2e7d32;">-1,381</td>
+        </tr>
+        
+        <tr>
+            <td>董硕</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-23.5%</td>
+            <td style="color: #2e7d32;">-1,640</td>
+        </tr>
+        
+        <tr>
+            <td>王砚</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-23.9%</td>
+            <td style="color: #2e7d32;">-3,347</td>
+        </tr>
+        
+        <tr>
+            <td>唐艳</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-24.2%</td>
+            <td style="color: #2e7d32;">-1,810</td>
+        </tr>
+        
+        <tr>
+            <td>张磊</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-24.2%</td>
+            <td style="color: #2e7d32;">-1,849</td>
+        </tr>
+        
+        <tr>
+            <td>朱敏</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-24.4%</td>
+            <td style="color: #2e7d32;">-2,490</td>
+        </tr>
+        
+        <tr>
+            <td>张玉迪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-24.7%</td>
+            <td style="color: #2e7d32;">-2,207</td>
+        </tr>
+        
+        <tr>
+            <td>宣昊天</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-24.8%</td>
+            <td style="color: #2e7d32;">-2,297</td>
+        </tr>
+        
+        <tr>
+            <td>李小莉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-24.8%</td>
+            <td style="color: #2e7d32;">-1,862</td>
+        </tr>
+        
+        <tr>
+            <td>刘凡</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-24.8%</td>
+            <td style="color: #2e7d32;">-1,834</td>
+        </tr>
+        
+        <tr>
+            <td>姜文涛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-25.3%</td>
+            <td style="color: #2e7d32;">-2,156</td>
+        </tr>
+        
+        <tr>
+            <td>梁越</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-25.5%</td>
+            <td style="color: #2e7d32;">-2,708</td>
+        </tr>
+        
+        <tr>
+            <td>王迎东</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-25.7%</td>
+            <td style="color: #2e7d32;">-2,927</td>
+        </tr>
+        
+        <tr>
+            <td>林军</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-26.0%</td>
+            <td style="color: #2e7d32;">-2,553</td>
+        </tr>
+        
+        <tr>
+            <td>张鹏飞</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-26.2%</td>
+            <td style="color: #2e7d32;">-2,219</td>
+        </tr>
+        
+        <tr>
+            <td>吴琪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-26.3%</td>
+            <td style="color: #2e7d32;">-2,122</td>
+        </tr>
+        
+        <tr>
+            <td>明瑞</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-26.3%</td>
+            <td style="color: #2e7d32;">-3,846</td>
+        </tr>
+        
+        <tr>
+            <td>李金鹏</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-27.0%</td>
+            <td style="color: #2e7d32;">-7,302</td>
+        </tr>
+        
+        <tr>
+            <td>陈建合</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-27.2%</td>
+            <td style="color: #2e7d32;">-7,904</td>
+        </tr>
+        
+        <tr>
+            <td>黄强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-27.2%</td>
+            <td style="color: #2e7d32;">-2,686</td>
+        </tr>
+        
+        <tr>
+            <td>李文文</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-27.7%</td>
+            <td style="color: #2e7d32;">-2,455</td>
+        </tr>
+        
+        <tr>
+            <td>陈虹旭</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-27.9%</td>
+            <td style="color: #2e7d32;">-2,312</td>
+        </tr>
+        
+        <tr>
+            <td>柴朝</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-28.3%</td>
+            <td style="color: #2e7d32;">-1,059</td>
+        </tr>
+        
+        <tr>
+            <td>袁凯</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-28.3%</td>
+            <td style="color: #2e7d32;">-2,008</td>
+        </tr>
+        
+        <tr>
+            <td>石灿</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-28.5%</td>
+            <td style="color: #2e7d32;">-2,393</td>
+        </tr>
+        
+        <tr>
+            <td>李静</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-28.6%</td>
+            <td style="color: #2e7d32;">-9,988</td>
+        </tr>
+        
+        <tr>
+            <td>苗成建</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-28.9%</td>
+            <td style="color: #2e7d32;">-3,539</td>
+        </tr>
+        
+        <tr>
+            <td>王文欢</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-28.9%</td>
+            <td style="color: #2e7d32;">-2,891</td>
+        </tr>
+        
+        <tr>
+            <td>马则伟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-29.1%</td>
+            <td style="color: #2e7d32;">-3,005</td>
+        </tr>
+        
+        <tr>
+            <td>张振卫</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-29.2%</td>
+            <td style="color: #2e7d32;">-4,688</td>
+        </tr>
+        
+        <tr>
+            <td>牛祉康</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-29.4%</td>
+            <td style="color: #2e7d32;">-1,869</td>
+        </tr>
+        
+        <tr>
+            <td>许锦全</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-29.7%</td>
+            <td style="color: #2e7d32;">-1,011</td>
+        </tr>
+        
+        <tr>
+            <td>邓浩</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-30.0%</td>
+            <td style="color: #2e7d32;">-3,365</td>
+        </tr>
+        
+        <tr>
+            <td>张子骏</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-30.1%</td>
+            <td style="color: #2e7d32;">-2,424</td>
+        </tr>
+        
+        <tr>
+            <td>叶杭</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-31.3%</td>
+            <td style="color: #2e7d32;">-2,766</td>
+        </tr>
+        
+        <tr>
+            <td>曾宁辉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-31.7%</td>
+            <td style="color: #2e7d32;">-1,278</td>
+        </tr>
+        
+        <tr>
+            <td>田振伟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-33.4%</td>
+            <td style="color: #2e7d32;">-3,015</td>
+        </tr>
+        
+        <tr>
+            <td>高志祥</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-34.3%</td>
+            <td style="color: #2e7d32;">-2,978</td>
+        </tr>
+        
+        <tr>
+            <td>李春良</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-34.5%</td>
+            <td style="color: #2e7d32;">-2,845</td>
+        </tr>
+        
+        <tr>
+            <td>张先强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-35.5%</td>
+            <td style="color: #2e7d32;">-2,567</td>
+        </tr>
+        
+        <tr>
+            <td>王兵</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-36.0%</td>
+            <td style="color: #2e7d32;">-3,284</td>
+        </tr>
+        
+        <tr>
+            <td>李力强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-37.1%</td>
+            <td style="color: #2e7d32;">-2,154</td>
+        </tr>
+        
+        <tr>
+            <td>罗天明</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-37.5%</td>
+            <td style="color: #2e7d32;">-2,166</td>
+        </tr>
+        
+        <tr>
+            <td>战佳兴</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-38.5%</td>
+            <td style="color: #2e7d32;">-2,658</td>
+        </tr>
+        
+        <tr>
+            <td>苟天朋</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-39.6%</td>
+            <td style="color: #2e7d32;">-3,311</td>
+        </tr>
+        
+        <tr>
+            <td>陈玉盼</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-41.1%</td>
+            <td style="color: #2e7d32;">-11,993</td>
+        </tr>
+        
+        <tr>
+            <td>胡志云</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-43.9%</td>
+            <td style="color: #2e7d32;">-8,511</td>
+        </tr>
+        
+        <tr>
+            <td>李星月</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-44.4%</td>
+            <td style="color: #2e7d32;">-1,167</td>
+        </tr>
+        
+        <tr>
+            <td>贾正超</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-45.1%</td>
+            <td style="color: #2e7d32;">-8,750</td>
+        </tr>
+        
+        <tr>
+            <td>崔腾飞</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-45.1%</td>
+            <td style="color: #2e7d32;">-3,533</td>
+        </tr>
+        
+        <tr>
+            <td>李思奇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-45.1%</td>
+            <td style="color: #2e7d32;">-11,398</td>
+        </tr>
+        
+        <tr>
+            <td>宋子奇</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-46.2%</td>
+            <td style="color: #2e7d32;">-10,286</td>
+        </tr>
+        
+        <tr>
+            <td>马海博</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-46.7%</td>
+            <td style="color: #2e7d32;">-1,493</td>
+        </tr>
+        
+        <tr>
+            <td>周保森</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-46.8%</td>
+            <td style="color: #2e7d32;">-7,093</td>
+        </tr>
+        
+        <tr>
+            <td>徐富浩</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-47.1%</td>
+            <td style="color: #2e7d32;">-3,984</td>
+        </tr>
+        
+        <tr>
+            <td>陈艳龙</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-47.6%</td>
+            <td style="color: #2e7d32;">-4,447</td>
+        </tr>
+        
+        <tr>
+            <td>余嘉辉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-48.1%</td>
+            <td style="color: #2e7d32;">-2,739</td>
+        </tr>
+        
+        <tr>
+            <td>丁建伟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-48.3%</td>
+            <td style="color: #2e7d32;">-2,913</td>
+        </tr>
+        
+        <tr>
+            <td>李貌</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-48.6%</td>
+            <td style="color: #2e7d32;">-3,525</td>
+        </tr>
+        
+        <tr>
+            <td>赵莎莎</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-49.0%</td>
+            <td style="color: #2e7d32;">-397</td>
+        </tr>
+        
+        <tr>
+            <td>彭志洪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-49.0%</td>
+            <td style="color: #2e7d32;">-3,819</td>
+        </tr>
+        
+        <tr>
+            <td>卿连彬</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-50.0%</td>
+            <td style="color: #2e7d32;">-175</td>
+        </tr>
+        
+        <tr>
+            <td>王浩天</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-50.5%</td>
+            <td style="color: #2e7d32;">-3,750</td>
+        </tr>
+        
+        <tr>
+            <td>姜自轶</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-50.8%</td>
+            <td style="color: #2e7d32;">-2,843</td>
+        </tr>
+        
+        <tr>
+            <td>杨玉婧</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-51.1%</td>
+            <td style="color: #2e7d32;">-1,924</td>
+        </tr>
+        
+        <tr>
+            <td>王延媛</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-51.4%</td>
+            <td style="color: #2e7d32;">-1,475</td>
+        </tr>
+        
+        <tr>
+            <td>曾俊铭</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-51.7%</td>
+            <td style="color: #2e7d32;">-4,941</td>
+        </tr>
+        
+        <tr>
+            <td>林新刚</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-52.4%</td>
+            <td style="color: #2e7d32;">-2,770</td>
+        </tr>
+        
+        <tr>
+            <td>代天宇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-52.9%</td>
+            <td style="color: #2e7d32;">-2,016</td>
+        </tr>
+        
+        <tr>
+            <td>郑心草</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-53.8%</td>
+            <td style="color: #2e7d32;">-1,610</td>
+        </tr>
+        
+        <tr>
+            <td>陈培林</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-53.9%</td>
+            <td style="color: #2e7d32;">-3,069</td>
+        </tr>
+        
+        <tr>
+            <td>李斌</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-54.6%</td>
+            <td style="color: #2e7d32;">-10,410</td>
+        </tr>
+        
+        <tr>
+            <td>冯健</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-54.7%</td>
+            <td style="color: #2e7d32;">-3,573</td>
+        </tr>
+        
+        <tr>
+            <td>刁启哲</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-55.0%</td>
+            <td style="color: #2e7d32;">-3,829</td>
+        </tr>
+        
+        <tr>
+            <td>李耀辉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-55.8%</td>
+            <td style="color: #2e7d32;">-2,690</td>
+        </tr>
+        
+        <tr>
+            <td>顾雅蕾</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-57.5%</td>
+            <td style="color: #2e7d32;">-64,832</td>
+        </tr>
+        
+        <tr>
+            <td>温凌俊</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-57.8%</td>
+            <td style="color: #2e7d32;">-4,828</td>
+        </tr>
+        
+        <tr>
+            <td>王杰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-58.4%</td>
+            <td style="color: #2e7d32;">-4,560</td>
+        </tr>
+        
+        <tr>
+            <td>张辰祥</td>
+            <td>饮料业务板块</td>
+            <td style="color: #2e7d32;">-59.1%</td>
+            <td style="color: #2e7d32;">-7,386</td>
+        </tr>
+        
+        <tr>
+            <td>刘泽健</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-59.8%</td>
+            <td style="color: #2e7d32;">-7,116</td>
+        </tr>
+        
+        <tr>
+            <td>耿亚强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-60.6%</td>
+            <td style="color: #2e7d32;">-4,639</td>
+        </tr>
+        
+        <tr>
+            <td>林振洋</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-61.3%</td>
+            <td style="color: #2e7d32;">-2,297</td>
+        </tr>
+        
+        <tr>
+            <td>黄吉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-61.9%</td>
+            <td style="color: #2e7d32;">-2,767</td>
+        </tr>
+        
+        <tr>
+            <td>张誉恒</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-62.6%</td>
+            <td style="color: #2e7d32;">-2,154</td>
+        </tr>
+        
+        <tr>
+            <td>张振祥</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-62.9%</td>
+            <td style="color: #2e7d32;">-4,639</td>
+        </tr>
+        
+        <tr>
+            <td>黄博</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-63.3%</td>
+            <td style="color: #2e7d32;">-11,498</td>
+        </tr>
+        
+        <tr>
+            <td>张庆怡</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-63.4%</td>
+            <td style="color: #2e7d32;">-4,473</td>
+        </tr>
+        
+        <tr>
+            <td>张建</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-64.5%</td>
+            <td style="color: #2e7d32;">-4,739</td>
+        </tr>
+        
+        <tr>
+            <td>颜浩洋</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-65.5%</td>
+            <td style="color: #2e7d32;">-5,338</td>
+        </tr>
+        
+        <tr>
+            <td>李航煜</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-66.0%</td>
+            <td style="color: #2e7d32;">-5,750</td>
+        </tr>
+        
+        <tr>
+            <td>胡茸智</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-67.6%</td>
+            <td style="color: #2e7d32;">-3,784</td>
+        </tr>
+        
+        <tr>
+            <td>张一丰</td>
+            <td>终端业务板块</td>
+            <td style="color: #2e7d32;">-67.9%</td>
+            <td style="color: #2e7d32;">-21,185</td>
+        </tr>
+        
+        <tr>
+            <td>王子翰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-68.2%</td>
+            <td style="color: #2e7d32;">-3,428</td>
+        </tr>
+        
+        <tr>
+            <td>刘笑龙</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-68.2%</td>
+            <td style="color: #2e7d32;">-3,582</td>
+        </tr>
+        
+        <tr>
+            <td>石可豪</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-68.2%</td>
+            <td style="color: #2e7d32;">-2,910</td>
+        </tr>
+        
+        <tr>
+            <td>刘鑫</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-68.4%</td>
+            <td style="color: #2e7d32;">-1,831</td>
+        </tr>
+        
+        <tr>
+            <td>范艺凡</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-70.2%</td>
+            <td style="color: #2e7d32;">-3,878</td>
+        </tr>
+        
+        <tr>
+            <td>陶玲玲</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-71.2%</td>
+            <td style="color: #2e7d32;">-2,499</td>
+        </tr>
+        
+        <tr>
+            <td>赵鑫宇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-71.7%</td>
+            <td style="color: #2e7d32;">-2,097</td>
+        </tr>
+        
+        <tr>
+            <td>蒲忠宝</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-72.2%</td>
+            <td style="color: #2e7d32;">-5,549</td>
+        </tr>
+        
+        <tr>
+            <td>陈雯</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-73.2%</td>
+            <td style="color: #2e7d32;">-5,879</td>
+        </tr>
+        
+        <tr>
+            <td>刘洋</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-73.4%</td>
+            <td style="color: #2e7d32;">-20,486</td>
+        </tr>
+        
+        <tr>
+            <td>陈存燕</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-73.8%</td>
+            <td style="color: #2e7d32;">-20,705</td>
+        </tr>
+        
+        <tr>
+            <td>王萁安</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-74.8%</td>
+            <td style="color: #2e7d32;">-4,200</td>
+        </tr>
+        
+        <tr>
+            <td>何美婷</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-74.8%</td>
+            <td style="color: #2e7d32;">-3,673</td>
+        </tr>
+        
+        <tr>
+            <td>胡宇</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-74.9%</td>
+            <td style="color: #2e7d32;">-6,328</td>
+        </tr>
+        
+        <tr>
+            <td>陶许强</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-75.0%</td>
+            <td style="color: #2e7d32;">-5,607</td>
+        </tr>
+        
+        <tr>
+            <td>杨博</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-77.0%</td>
+            <td style="color: #2e7d32;">-2,771</td>
+        </tr>
+        
+        <tr>
+            <td>王晨帆</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-77.1%</td>
+            <td style="color: #2e7d32;">-4,114</td>
+        </tr>
+        
+        <tr>
+            <td>于德潭</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-77.6%</td>
+            <td style="color: #2e7d32;">-3,921</td>
+        </tr>
+        
+        <tr>
+            <td>周辉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-77.6%</td>
+            <td style="color: #2e7d32;">-7,321</td>
+        </tr>
+        
+        <tr>
+            <td>孙张结</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-78.8%</td>
+            <td style="color: #2e7d32;">-4,279</td>
+        </tr>
+        
+        <tr>
+            <td>田尚宏</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-79.7%</td>
+            <td style="color: #2e7d32;">-5,145</td>
+        </tr>
+        
+        <tr>
+            <td>濮安娜</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-86.5%</td>
+            <td style="color: #2e7d32;">-4,923</td>
+        </tr>
+        
+        <tr>
+            <td>吴程锴</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-87.6%</td>
+            <td style="color: #2e7d32;">-6,442</td>
+        </tr>
+        
+        <tr>
+            <td>梁贤星</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-88.1%</td>
+            <td style="color: #2e7d32;">-5,423</td>
+        </tr>
+        
+        <tr>
+            <td>解昆鹏</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-88.8%</td>
+            <td style="color: #2e7d32;">-10,822</td>
+        </tr>
+        
+        <tr>
+            <td>骆焌锐</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-89.0%</td>
+            <td style="color: #2e7d32;">-6,780</td>
+        </tr>
+        
+        <tr>
+            <td>杨康</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-89.7%</td>
+            <td style="color: #2e7d32;">-5,903</td>
+        </tr>
+        
+        <tr>
+            <td>古成杰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-89.9%</td>
+            <td style="color: #2e7d32;">-6,637</td>
+        </tr>
+        
+        <tr>
+            <td>刘贤</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-90.0%</td>
+            <td style="color: #2e7d32;">-6,691</td>
+        </tr>
+        
+        <tr>
+            <td>乔雪娟</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-90.9%</td>
+            <td style="color: #2e7d32;">-11,274</td>
+        </tr>
+        
+        <tr>
+            <td>郑树义</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-90.9%</td>
+            <td style="color: #2e7d32;">-127,492</td>
+        </tr>
+        
+        <tr>
+            <td>罗喆慧</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-91.0%</td>
+            <td style="color: #2e7d32;">-1,584</td>
+        </tr>
+        
+        <tr>
+            <td>樊操</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-91.2%</td>
+            <td style="color: #2e7d32;">-5,876</td>
+        </tr>
+        
+        <tr>
+            <td>周超</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-91.6%</td>
+            <td style="color: #2e7d32;">-10,255</td>
+        </tr>
+        
+        <tr>
+            <td>马泽东</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-91.7%</td>
+            <td style="color: #2e7d32;">-1,918</td>
+        </tr>
+        
+        <tr>
+            <td>孔垂友</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-93.5%</td>
+            <td style="color: #2e7d32;">-2,475</td>
+        </tr>
+        
+        <tr>
+            <td>高帅</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-93.7%</td>
+            <td style="color: #2e7d32;">-6,853</td>
+        </tr>
+        
+        <tr>
+            <td>阳杰</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-93.9%</td>
+            <td style="color: #2e7d32;">-5,757</td>
+        </tr>
+        
+        <tr>
+            <td>朱廖永</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-94.0%</td>
+            <td style="color: #2e7d32;">-6,184</td>
+        </tr>
+        
+        <tr>
+            <td>张浩浩</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-94.4%</td>
+            <td style="color: #2e7d32;">-7,310</td>
+        </tr>
+        
+        <tr>
+            <td>朱吉</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-94.5%</td>
+            <td style="color: #2e7d32;">-6,410</td>
+        </tr>
+        
+        <tr>
+            <td>李睿胤</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-94.8%</td>
+            <td style="color: #2e7d32;">-6,752</td>
+        </tr>
+        
+        <tr>
+            <td>谭展博</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-97.0%</td>
+            <td style="color: #2e7d32;">-5,946</td>
+        </tr>
+        
+        <tr>
+            <td>刘可可</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-97.2%</td>
+            <td style="color: #2e7d32;">-7,811</td>
+        </tr>
+        
+        <tr>
+            <td>李瑞霞</td>
+            <td>中后台业务板块</td>
+            <td style="color: #2e7d32;">-100.0%</td>
+            <td style="color: #2e7d32;">-346</td>
+        </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <h3>⚠️ 部门成本异常预警</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>部门</th>
+                                <th>环比变动</th>
+                                <th>同比变动</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>饮料业务板块</td>
+            <td>-7.8%</td>
+            <td>-27.9%</td>
+            <td>⚠️ 建议关注</td>
+        </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="footer">
+            <span>📌 数据来源：薪酬系统 ｜ 预测基于历史趋势，仅供参考</span>
+            <span>报告生成：2026-07-22 17:06</span>
+        </div>
+
+    </div>
+</body>
+</html>
