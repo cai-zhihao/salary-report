@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>公司主体批量处理插件</title>
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;}
+    body {
+      min-width:410px;
+      padding:16px;
+      background:var(--bg,#f7f8fa);
+      color:var(--text,#1f2329);
+    }
+    .card{
+      background:var(--cardbg,#fff);
+      border-radius:8px;
+      padding:14px;
+      box-shadow:0 1px 2px rgba(0,0,0,0.08);
+    }
+    .title{font-size:15px;font-weight:600;margin-bottom:12px;}
+    .btn{
+      width:100%;padding:11px;border:none;border-radius:6px;
+      background:#2e75cc;color:#fff;font-size:14px;cursor:pointer;margin-bottom:10px;
+    }
+    .btn:hover{background:#2462ad;}
+    .logbox{
+      margin-top:12px;padding:10px;background:#f2f3f5;border-radius:6px;
+      font-size:12px;white-space:pre-wrap;max-height:300px;overflow:auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">🏢公司主体批量处理</div>
+    <button class="btn" onclick="runTask()">▶执行全部任务</button>
+    <div class="logbox" id="log">等待执行任务...</div>
+  </div>
+
+<script type="module">
+import { bitable } from 'https://unpkg.com/@lark-base-open/js-sdk@0.6.3/dist/index.browser.esm.js';
+
+const logDom = document.getElementById('log');
+function log(msg){
+  logDom.innerText += "\n"+msg;
+  logDom.scrollTop = logDom.scrollHeight;
+}
+
+window.runTask = async function(){
+  logDom.innerText = "开始执行任务...\n";
+  try{
+    const table = await bitable.base.getActiveTable();
+    // 获取【公司主体名称】字段ID
+    const companyFieldId = await table.getFieldIdByName("公司主体名称");
+    log("✅拿到字段ID："+companyFieldId);
+
+    // 获取全部记录
+    const {records} = await table.getRecordList();
+    log(`✅读取全部记录，一共${records.length}行`);
+
+    let findModifyRec = null; //待修改：轻巧拿（合肥）科技有限公司天津分公司
+    let findDeleteRec = null; //待删除：自然造物（安徽）酒业有限公司
+
+    //遍历所有记录匹配文本
+    for(const rec of records){
+      const cellVal = rec.fields[companyFieldId];
+      //文本字段取值
+      const companyName = (cellVal === undefined) ? "" : cellVal;
+
+      if(companyName === "轻巧拿（合肥）科技有限公司天津分公司"){
+        findModifyRec = rec;
+      }
+      if(companyName === "自然造物（安徽）酒业有限公司"){
+        findDeleteRec = rec;
+      }
+    }
+
+    //任务1：修改单元格：轻巧拿天津分公司 → "测试"
+    if(findModifyRec){
+      await table.setCellValue(companyFieldId, findModifyRec.recordId, "测试");
+      log("✅已修改：轻巧拿（合肥）科技有限公司天津分公司 → 测试");
+    }else{
+      log("⚠️未找到【轻巧拿（合肥）科技有限公司天津分公司】记录");
+    }
+
+    //任务2：删除自然造物（安徽）酒业有限公司整行
+    if(findDeleteRec){
+      await table.deleteRecord(findDeleteRec.recordId);
+      log("✅已删除【自然造物（安徽）酒业有限公司】整行记录");
+    }else{
+      log("⚠️未找到【自然造物（安徽）酒业有限公司】记录");
+    }
+
+    //任务3：末尾新增一行，公司主体名称=测试2
+    await table.addRecord({
+      fields:{
+        [companyFieldId]:"测试2"
+      }
+    });
+    log("✅新增完成：公司主体名称 = 测试2");
+
+    log("\n🎉全部任务执行完毕，请回到多维表格查看结果！");
+
+  }catch(err){
+    log("\n❌出错："+err.message);
+    console.error(err);
+  }
+}
+
+//深色模式适配
+async function initTheme(){
+  const theme = await bitable.ui.getTheme();
+  applyTheme(theme);
+  bitable.ui.onThemeChange(t=>applyTheme(t));
+}
+function applyTheme(theme){
+  if(theme==="dark"){
+    document.body.style.setProperty('--bg','#1b1d23');
+    document.body.style.setProperty('--cardbg','#272a33');
+    document.body.style.setProperty('--text','#f2f3f5');
+  }else{
+    document.body.style.setProperty('--bg','#f7f8fa');
+    document.body.style.setProperty('--cardbg','#ffffff');
+    document.body.style.setProperty('--text','#1f2329');
+  }
+}
+initTheme();
+</script>
+</body>
+</html>
