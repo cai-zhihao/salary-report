@@ -100,15 +100,15 @@
 
         <button class="btn" id="executeBtn">🚀 执行全部操作</button>
 
-        <div class="log-area" id="logArea">等待执行...</div>
+        <div class="log-area" id="logArea">⏳ 正在加载 SDK，请稍候...</div>
         <div class="status-bar">
-            <span id="statusText">就绪</span>
+            <span id="statusText">初始化中</span>
             <span id="recordCount"></span>
         </div>
     </div>
 
-    <!-- 引入飞书官方 JS SDK -->
-    <script src="https://sf1-cdn-tos.douyinstatic.com/obj/static/bitable/websdk/0.0.7/feishu.js">
+    <!-- 引入飞书官方 JS SDK (更换为更通用的最新版地址) -->
+    <script src="https://sf1-cdn-tos.douyinstatic.com/obj/static/bitable/websdk/latest/feishu.js">
     </script>
 
     <script>
@@ -154,24 +154,52 @@
             statusText.textContent = text;
         }
 
-        async function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
+        // ---- 【关键修复】等待 SDK 加载完成的函数 ----
+        function waitForBitable(timeout = 8000) {
+            return new Promise((resolve, reject) => {
+                // 先检查一下是否已经存在
+                if (typeof bitable !== 'undefined' && bitable) {
+                    return resolve(bitable);
+                }
+
+                const startTime = Date.now();
+                const interval = setInterval(() => {
+                    // 检查 bitable 是否已经被定义
+                    if (typeof bitable !== 'undefined' && bitable) {
+                        clearInterval(interval);
+                        resolve(bitable);
+                    } else if (Date.now() - startTime > timeout) {
+                        clearInterval(interval);
+                        // 给出更具体的报错提示
+                        reject(new Error(
+                            'SDK 加载超时（8秒）。请检查：\n' +
+                            '1. 你是否在飞书多维表格的「侧边栏」中打开此插件？（不能在浏览器单独打开）\n' +
+                            '2. 当前网络是否能访问 sf1-cdn-tos.douyinstatic.com'
+                        ));
+                    }
+                }, 300);
+            });
         }
 
         async function executeAll() {
             // 防止重复点击
             executeBtn.disabled = true;
-            executeBtn.textContent = '⏳ 执行中...';
+            executeBtn.textContent = '⏳ 连接中...';
             clearLog();
-            setStatus('正在连接表格...');
-            log('🚀 开始执行操作...', 'info');
+            setStatus('正在连接 SDK...');
+            log('🔌 正在等待飞书 SDK 加载...', 'info');
 
             try {
+                // ---- 【第0步】等待 SDK 就绪 ----
+                await waitForBitable();
+                log('✅ SDK 加载成功！', 'success');
+                setStatus('已连接，执行中...');
+                executeBtn.textContent = '⏳ 执行中...';
+
                 // ---- 第1步：获取表格 ----
-                // 如果是 /wiki/ 开头的 URL，把下面这行改成：
-                // const table = await bitable.base.getTableById('你的table_id');
+                // 注意：如果是 /wiki/ 开头的 URL，改成：const table = await bitable.base.getTableById('你的table_id');
                 const table = await bitable.base.getActiveTable();
-                log('✅ 已连接到表格', 'success');
+                log('✅ 已连接到当前表格', 'success');
 
                 // ---- 第2步：获取字段 ----
                 const fieldList = await table.getFieldList();
@@ -184,7 +212,7 @@
                 }
 
                 if (!targetField) {
-                    throw new Error(`找不到列名为 "${CONFIG.COLUMN_NAME}" 的字段，请检查列名是否完全一致`);
+                    throw new Error(`找不到列名为 "${CONFIG.COLUMN_NAME}" 的字段，请检查列名是否完全一致（包括空格）`);
                 }
                 log(`✅ 找到目标字段: "${targetField.getName()}" (ID: ${targetField.getId()})`, 'success');
 
@@ -193,11 +221,8 @@
                 log(`📊 当前表格共有 ${recordIdList.length} 条记录`, 'info');
                 recordCount.textContent = `共 ${recordIdList.length} 条`;
 
-                // ---- 第4步：读取所有记录的值（批量获取） ----
-                // 用 getAllCells 批量获取，比逐条快很多
+                // ---- 第4步：读取所有记录的值 ----
                 const cellsMap = await targetField.getAllCells(recordIdList);
-
-                // 构建一个映射：recordId → 单元格值
                 const recordValueMap = {};
                 for (const recordId of recordIdList) {
                     const cell = cellsMap[recordId];
@@ -212,7 +237,6 @@
                 let updateRecordId = null;
 
                 for (const [recordId, value] of Object.entries(recordValueMap)) {
-                    // 值可能是数组（多选），也可能是字符串
                     let strValue = '';
                     if (Array.isArray(value)) {
                         strValue = value.join('');
@@ -237,12 +261,10 @@
                     log(`⚠️ 未找到要删除的值: "${CONFIG.DELETE_VALUE}"`, 'error');
                 }
 
-                // 删除后，重新获取记录列表（因为记录变了）
                 const newRecordIdList = await table.getRecordIdList();
 
                 // ---- 第7步：执行修改 ----
                 if (updateRecordId) {
-                    // 检查这条记录是否还在（删除操作可能删掉了它）
                     const stillExists = newRecordIdList.includes(updateRecordId);
                     if (stillExists) {
                         log(`✏️ 找到要修改的行: "${CONFIG.UPDATE_FROM}" → "${CONFIG.UPDATE_TO}" (ID: ${updateRecordId})`,
@@ -257,10 +279,6 @@
                 }
 
                 // ---- 第8步：执行新增 ----
-                // 再次获取最新的记录列表
-                const finalRecordIdList = await table.getRecordIdList();
-
-                // 用 addRecord 新增一行
                 await table.addRecord({
                     fields: {
                         [targetField.getId()]: CONFIG.NEW_VALUE
@@ -287,10 +305,10 @@
         // ---- 绑定按钮事件 ----
         executeBtn.addEventListener('click', executeAll);
 
-        // ---- 页面加载后自动执行（方便测试） ----
-        // 如果你希望打开插件就自动运行，取消下面这行的注释
+        // ---- 页面加载后自动执行（如果希望打开插件自动运行，取消注释） ----
         // window.addEventListener('load', () => {
-        //     setTimeout(executeAll, 500);
+        //     // 等页面加载完，再等1秒让SDK有充足时间初始化
+        //     setTimeout(executeAll, 1000);
         // });
     </script>
 
