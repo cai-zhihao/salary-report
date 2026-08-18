@@ -3,65 +3,296 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>我的第一个飞书插件</title>
+    <title>公司主体管理工具</title>
     <style>
-        /* 简单加点样式，让页面好看一点 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: #f5f6fa;
-            margin: 0;
-            padding: 20px;
+            padding: 24px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .container {
             background: white;
             border-radius: 16px;
-            padding: 48px 40px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            text-align: center;
-            max-width: 420px;
+            padding: 32px 28px;
+            max-width: 480px;
             width: 100%;
-        }
-        .icon {
-            font-size: 48px;
-            margin-bottom: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
         }
         h1 {
-            font-size: 24px;
+            font-size: 20px;
             color: #1d2129;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        p {
-            font-size: 16px;
-            color: #4e5969;
-            line-height: 1.6;
-        }
-        .badge {
-            display: inline-block;
-            margin-top: 20px;
-            background: #e8f3ff;
-            color: #0442d2;  /* 飞书主题色 */
-            padding: 6px 20px;
-            border-radius: 20px;
+        .subtitle {
             font-size: 14px;
+            color: #86909c;
+            margin-bottom: 24px;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px 0;
+            background: #0442d2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #0336b0;
+        }
+        .btn:disabled {
+            background: #c9cdd4;
+            cursor: not-allowed;
+        }
+        .log-area {
+            margin-top: 20px;
+            background: #f7f8fa;
+            border-radius: 8px;
+            padding: 16px;
+            max-height: 320px;
+            overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #1d2129;
+            font-family: "SF Mono", "Menlo", monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .log-area .success {
+            color: #00a854;
+        }
+        .log-area .error {
+            color: #f53f3f;
+        }
+        .log-area .info {
+            color: #4e5969;
+        }
+        .log-area .highlight {
+            color: #0442d2;
+            font-weight: 600;
+        }
+        .status-bar {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #86909c;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="icon">🚀</div>
-        <h1>Hello World!</h1>
-        <p>插件部署成功！🎉</p>
-        <span class="badge">✅ 飞书多维表格 · 边栏插件</span>
+        <h1>📋 公司主体管理</h1>
+        <p class="subtitle">一键执行：删除指定行 · 修改指定行 · 新增行</p>
+
+        <button class="btn" id="executeBtn">🚀 执行全部操作</button>
+
+        <div class="log-area" id="logArea">等待执行...</div>
+        <div class="status-bar">
+            <span id="statusText">就绪</span>
+            <span id="recordCount"></span>
+        </div>
     </div>
+
+    <!-- 引入飞书官方 JS SDK -->
+    <script src="https://sf1-cdn-tos.douyinstatic.com/obj/static/bitable/websdk/0.0.7/feishu.js">
+    </script>
+
+    <script>
+        // ============================================================
+        // 配置区：根据你的实际情况修改这里
+        // ============================================================
+        const CONFIG = {
+            // 要操作的列名（必须是列头显示的文本，一字不差）
+            COLUMN_NAME: '公司主体名称',
+
+            // 要删除的行的精确值
+            DELETE_VALUE: '自然造物（安徽）酒业有限公司',
+
+            // 要修改的行的原值 → 新值
+            UPDATE_FROM: '元气森林（合肥）食品科技有限公司',
+            UPDATE_TO: '测试',
+
+            // 新增行的内容
+            NEW_VALUE: '测试2',
+        };
+
+        // ============================================================
+        // 主逻辑
+        // ============================================================
+        const logArea = document.getElementById('logArea');
+        const statusText = document.getElementById('statusText');
+        const recordCount = document.getElementById('recordCount');
+        const executeBtn = document.getElementById('executeBtn');
+
+        function log(message, type = 'info') {
+            const line = document.createElement('div');
+            line.className = type;
+            line.textContent = message;
+            logArea.appendChild(line);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        function clearLog() {
+            logArea.innerHTML = '';
+        }
+
+        function setStatus(text) {
+            statusText.textContent = text;
+        }
+
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function executeAll() {
+            // 防止重复点击
+            executeBtn.disabled = true;
+            executeBtn.textContent = '⏳ 执行中...';
+            clearLog();
+            setStatus('正在连接表格...');
+            log('🚀 开始执行操作...', 'info');
+
+            try {
+                // ---- 第1步：获取表格 ----
+                // 如果是 /wiki/ 开头的 URL，把下面这行改成：
+                // const table = await bitable.base.getTableById('你的table_id');
+                const table = await bitable.base.getActiveTable();
+                log('✅ 已连接到表格', 'success');
+
+                // ---- 第2步：获取字段 ----
+                const fieldList = await table.getFieldList();
+                let targetField = null;
+                for (const field of fieldList) {
+                    if (field.getName() === CONFIG.COLUMN_NAME) {
+                        targetField = field;
+                        break;
+                    }
+                }
+
+                if (!targetField) {
+                    throw new Error(`找不到列名为 "${CONFIG.COLUMN_NAME}" 的字段，请检查列名是否完全一致`);
+                }
+                log(`✅ 找到目标字段: "${targetField.getName()}" (ID: ${targetField.getId()})`, 'success');
+
+                // ---- 第3步：获取所有记录 ----
+                const recordIdList = await table.getRecordIdList();
+                log(`📊 当前表格共有 ${recordIdList.length} 条记录`, 'info');
+                recordCount.textContent = `共 ${recordIdList.length} 条`;
+
+                // ---- 第4步：读取所有记录的值（批量获取） ----
+                // 用 getAllCells 批量获取，比逐条快很多
+                const cellsMap = await targetField.getAllCells(recordIdList);
+
+                // 构建一个映射：recordId → 单元格值
+                const recordValueMap = {};
+                for (const recordId of recordIdList) {
+                    const cell = cellsMap[recordId];
+                    if (cell) {
+                        const value = await cell.getValue();
+                        recordValueMap[recordId] = value;
+                    }
+                }
+
+                // ---- 第5步：找出要删除和要修改的记录 ----
+                let deleteRecordId = null;
+                let updateRecordId = null;
+
+                for (const [recordId, value] of Object.entries(recordValueMap)) {
+                    // 值可能是数组（多选），也可能是字符串
+                    let strValue = '';
+                    if (Array.isArray(value)) {
+                        strValue = value.join('');
+                    } else {
+                        strValue = String(value || '');
+                    }
+
+                    if (strValue === CONFIG.DELETE_VALUE) {
+                        deleteRecordId = recordId;
+                    }
+                    if (strValue === CONFIG.UPDATE_FROM) {
+                        updateRecordId = recordId;
+                    }
+                }
+
+                // ---- 第6步：执行删除 ----
+                if (deleteRecordId) {
+                    log(`🗑️ 找到要删除的行: "${CONFIG.DELETE_VALUE}" (ID: ${deleteRecordId})`, 'info');
+                    await table.deleteRecord(deleteRecordId);
+                    log(`✅ 已删除 "${CONFIG.DELETE_VALUE}"`, 'success');
+                } else {
+                    log(`⚠️ 未找到要删除的值: "${CONFIG.DELETE_VALUE}"`, 'error');
+                }
+
+                // 删除后，重新获取记录列表（因为记录变了）
+                const newRecordIdList = await table.getRecordIdList();
+
+                // ---- 第7步：执行修改 ----
+                if (updateRecordId) {
+                    // 检查这条记录是否还在（删除操作可能删掉了它）
+                    const stillExists = newRecordIdList.includes(updateRecordId);
+                    if (stillExists) {
+                        log(`✏️ 找到要修改的行: "${CONFIG.UPDATE_FROM}" → "${CONFIG.UPDATE_TO}" (ID: ${updateRecordId})`,
+                        'info');
+                        await targetField.setValue(updateRecordId, CONFIG.UPDATE_TO);
+                        log(`✅ 已修改为 "${CONFIG.UPDATE_TO}"`, 'success');
+                    } else {
+                        log(`⚠️ 要修改的记录 "${CONFIG.UPDATE_FROM}" 已被删除，跳过修改`, 'error');
+                    }
+                } else {
+                    log(`⚠️ 未找到要修改的值: "${CONFIG.UPDATE_FROM}"`, 'error');
+                }
+
+                // ---- 第8步：执行新增 ----
+                // 再次获取最新的记录列表
+                const finalRecordIdList = await table.getRecordIdList();
+
+                // 用 addRecord 新增一行
+                await table.addRecord({
+                    fields: {
+                        [targetField.getId()]: CONFIG.NEW_VALUE
+                    }
+                });
+                log(`✅ 已新增一行: "${CONFIG.NEW_VALUE}"`, 'success');
+
+                // ---- 第9步：完成 ----
+                const finalCount = (await table.getRecordIdList()).length;
+                recordCount.textContent = `共 ${finalCount} 条`;
+                log(`🎉 全部操作完成！当前表格共 ${finalCount} 条记录`, 'success');
+                setStatus('✅ 执行完成');
+
+            } catch (error) {
+                log(`❌ 错误: ${error.message}`, 'error');
+                console.error(error);
+                setStatus('❌ 执行失败');
+            } finally {
+                executeBtn.disabled = false;
+                executeBtn.textContent = '🚀 执行全部操作';
+            }
+        }
+
+        // ---- 绑定按钮事件 ----
+        executeBtn.addEventListener('click', executeAll);
+
+        // ---- 页面加载后自动执行（方便测试） ----
+        // 如果你希望打开插件就自动运行，取消下面这行的注释
+        // window.addEventListener('load', () => {
+        //     setTimeout(executeAll, 500);
+        // });
+    </script>
+
 </body>
 </html>
