@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>公司主体批量处理插件</title>
+  <title>公司主体批量处理</title>
   <style>
     * {margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;}
     body {
@@ -46,36 +46,43 @@ function log(msg){
   logDom.scrollTop = logDom.scrollHeight;
 }
 
+// 兼容多维表格文本字段，提取真实字符串
+function getText(cellValue){
+  if(!cellValue) return "";
+  if(typeof cellValue === "string") return cellValue.trim();
+  if(Array.isArray(cellValue) && cellValue[0]?.text){
+    return cellValue[0].text.trim();
+  }
+  return String(cellValue).trim();
+}
+
 window.runTask = async function(){
   logDom.innerText = "开始执行任务...\n";
   try{
     const table = await bitable.base.getActiveTable();
-    // 获取【公司主体名称】字段ID
     const companyFieldId = await table.getFieldIdByName("公司主体名称");
     log("✅拿到字段ID："+companyFieldId);
 
-    // 获取全部记录
     const {records} = await table.getRecordList();
     log(`✅读取全部记录，一共${records.length}行`);
 
-    let findModifyRec = null; //待修改：轻巧拿（合肥）科技有限公司天津分公司
-    let findDeleteRec = null; //待删除：自然造物（安徽）酒业有限公司
+    let findModifyRec = null;
+    let findDeleteRec = null;
 
-    //遍历所有记录匹配文本
     for(const rec of records){
-      const cellVal = rec.fields[companyFieldId];
-      //文本字段取值
-      const companyName = (cellVal === undefined) ? "" : cellVal;
+      const rawCell = rec.fields[companyFieldId];
+      const companyName = getText(rawCell);
+      log(`扫描行：${companyName}`);
 
-      if(companyName === "轻巧拿（合肥）科技有限公司天津分公司"){
+      if(companyName.includes("轻巧拿（合肥）科技有限公司天津分公司")){
         findModifyRec = rec;
       }
-      if(companyName === "自然造物（安徽）酒业有限公司"){
+      if(companyName.includes("自然造物（安徽）酒业有限公司")){
         findDeleteRec = rec;
       }
     }
 
-    //任务1：修改单元格：轻巧拿天津分公司 → "测试"
+    //任务1 修改单元格
     if(findModifyRec){
       await table.setCellValue(companyFieldId, findModifyRec.recordId, "测试");
       log("✅已修改：轻巧拿（合肥）科技有限公司天津分公司 → 测试");
@@ -83,7 +90,7 @@ window.runTask = async function(){
       log("⚠️未找到【轻巧拿（合肥）科技有限公司天津分公司】记录");
     }
 
-    //任务2：删除自然造物（安徽）酒业有限公司整行
+    //任务2 删除行
     if(findDeleteRec){
       await table.deleteRecord(findDeleteRec.recordId);
       log("✅已删除【自然造物（安徽）酒业有限公司】整行记录");
@@ -91,7 +98,7 @@ window.runTask = async function(){
       log("⚠️未找到【自然造物（安徽）酒业有限公司】记录");
     }
 
-    //任务3：末尾新增一行，公司主体名称=测试2
+    //任务3新增
     await table.addRecord({
       fields:{
         [companyFieldId]:"测试2"
@@ -99,7 +106,7 @@ window.runTask = async function(){
     });
     log("✅新增完成：公司主体名称 = 测试2");
 
-    log("\n🎉全部任务执行完毕，请回到多维表格查看结果！");
+    log("\n🎉全部任务执行完毕！刷新表格查看结果");
 
   }catch(err){
     log("\n❌出错："+err.message);
@@ -107,7 +114,7 @@ window.runTask = async function(){
   }
 }
 
-//深色模式适配
+//深色模式
 async function initTheme(){
   const theme = await bitable.ui.getTheme();
   applyTheme(theme);
